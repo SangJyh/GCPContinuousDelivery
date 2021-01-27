@@ -2,6 +2,7 @@ import os
 import tensorflow as tf
 from skimage import io
 import requests
+import matplotlib.pyplot as plt 
 
 """
 Inspiration: https://www.tensorflow.org/lite/models/style_transfer/overview
@@ -64,6 +65,7 @@ def run_style_transform(style_bottleneck, preprocessed_content_image):
   stylized_image = interpreter.tensor(
       interpreter.get_output_details()[0]["index"]
       )()
+  return(stylized_image)
 
 def plot (content_image, style_image, stylized_image):
     fig, axs = plt.subplots(1, 3, figsize=(10, 3))
