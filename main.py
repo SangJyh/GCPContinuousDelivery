@@ -7,7 +7,7 @@ from io import BytesIO
 app = Flask(__name__)
 @app.route('/')
 def main():
-    # Get random dog image and style image
+    #Get random dog image and style image
     #endpoint = "https://dog.ceo/api/breeds/image/random"
     #response = requests.get(endpoint)
     #img_url = response.json()['message']
@@ -18,10 +18,10 @@ def main():
     content_image = preprocess_image(load_img(img_url), 384)
     style_image = preprocess_image(load_img(style_img_url), 256)
 
-    #Calculate style bottleneck for the preprocessed style image.
+    #Calculate style bottleneck for the preprocessed style image
     style_bottleneck = run_style_predict(style_image)
 
-    # Stylize the content image using the style bottleneck.
+    # Stylize the content image using the style bottleneck
     stylized_image = run_style_transform(style_bottleneck, content_image)
 
     # Create a plot of the images
@@ -31,11 +31,7 @@ def main():
     encoded = base64.b64encode(tmpfile.getvalue()).decode('utf8')
 
     # Display the output in html
-    #image_html = """
-    #<h1>I hope you enjoy your random Van Gogh Dog!</h1>
-    #<img src = url("plot.png")/>
-    #"""
-    image_html = 'Some html head' + '<img src=\'data:image/png;base64,{}\'>'.format(encoded) + 'Some more html'
+    image_html = '<h1>A random dog in the style of Picasso!</h1>' + '<img src=\'data:image/png;base64,{}\'>'.format(encoded)
 
 
     return (image_html)
