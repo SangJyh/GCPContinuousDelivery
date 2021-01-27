@@ -1,5 +1,4 @@
 from flask import Flask
-from flask import jsonify, make_response
 import requests
 
 app = Flask(__name__)
@@ -8,7 +7,11 @@ def main():
     endpoint = "https://dog.ceo/api/breeds/image/random"
     response = requests.get(endpoint)
     img_url = response.json()['message']
-    image_html = """<img src = """ + img_url + """ alt = "Random Basenji Image">"""
+    image_html = """
+    <h1>I hope you enjoy your random dog!</h1>
+    <img src = """ + img_url + """ alt = "Random dog" style="width:500px;height:500px;">
+    """
+
     return (image_html)
 
 if __name__ == '__main__':
