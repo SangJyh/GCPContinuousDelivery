@@ -3,7 +3,6 @@ import tensorflow as tf
 from skimage import io
 import requests
 import matplotlib.pyplot as plt 
-
 """
 Inspiration: https://www.tensorflow.org/lite/models/style_transfer/overview
 """
@@ -33,6 +32,7 @@ def preprocess_image(image, target_dim):
 # Function to run style prediction on preprocessed style image.
 def run_style_predict(preprocessed_style_image):
   # Load the model.
+  style_predict_path = tf.keras.utils.get_file('style_predict.tflite', 'https://tfhub.dev/google/lite-model/magenta/arbitrary-image-stylization-v1-256/int8/prediction/1?lite-format=tflite')
   interpreter = tf.lite.Interpreter(model_path=style_predict_path)
 
   # Set model input.
@@ -50,6 +50,7 @@ def run_style_predict(preprocessed_style_image):
 # Run style transform on preprocessed style image
 def run_style_transform(style_bottleneck, preprocessed_content_image):
   # Load the model.
+  style_transform_path = tf.keras.utils.get_file('style_transform.tflite', 'https://tfhub.dev/google/lite-model/magenta/arbitrary-image-stylization-v1-256/int8/transfer/1?lite-format=tflite')
   interpreter = tf.lite.Interpreter(model_path=style_transform_path)
 
   # Set model input.
@@ -78,4 +79,4 @@ def plot (content_image, style_image, stylized_image):
     axs[2].imshow(tf.squeeze(stylized_image))
     axs[2].axis('off')
     axs[2].set_title("Stylized Image")
-    fig.savefig('plot.png')
+    return (fig)
