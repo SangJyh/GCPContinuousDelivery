@@ -32,8 +32,6 @@ def main():
 
     # Display the output in html
     image_html = '<h1>A random dog in the style of Picasso!</h1>' + '<img src=\'data:image/png;base64,{}\'>'.format(encoded)
-
-
     return (image_html)
 
 if __name__ == '__main__':
