@@ -3,6 +3,8 @@ import tensorflow as tf
 from skimage import io
 import requests
 import matplotlib.pyplot as plt 
+from google.cloud import vision
+
 """
 Inspiration: https://www.tensorflow.org/lite/models/style_transfer/overview
 """
@@ -84,7 +86,6 @@ def plot (content_image, style_image, stylized_image):
 def detect_labels_uri(uri):
     """Detects labels in the file located in Google Cloud Storage or on the
     Web."""
-    from google.cloud import vision
     client = vision.ImageAnnotatorClient()
     image = vision.Image()
     image.source.image_uri = uri
