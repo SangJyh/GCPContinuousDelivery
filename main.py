@@ -4,15 +4,6 @@ from utils import load_img, plot, preprocess_image, run_style_predict, run_style
 import base64
 from io import BytesIO
 
-def load_model():
-    global style_image
-    global style_bottleneck
-    # Get style image and process it 
-    style_img_url = "https://upload.wikimedia.org/wikipedia/en/1/14/Picasso_The_Weeping_Woman_Tate_identifier_T05010_10.jpg"
-    style_image = preprocess_image(load_img(style_img_url), 256)
-    #Calculate style bottleneck for the preprocessed style image
-    style_bottleneck = run_style_predict(style_image)
-
 app = Flask(__name__)
 @app.route('/')
 def main():
@@ -20,6 +11,11 @@ def main():
     endpoint = "https://dog.ceo/api/breeds/image/random"
     response = requests.get(endpoint)
     img_url = response.json()['message']
+    # Get style image and process it 
+    style_img_url = "https://upload.wikimedia.org/wikipedia/en/1/14/Picasso_The_Weeping_Woman_Tate_identifier_T05010_10.jpg"
+    style_image = preprocess_image(load_img(style_img_url), 256)
+    #Calculate style bottleneck for the preprocessed style image
+    style_bottleneck = run_style_predict(style_image)
 
     #Process the content image
     content_image = preprocess_image(load_img(img_url), 384)
@@ -37,5 +33,4 @@ def main():
     return (image_html)
 
 if __name__ == '__main__':
-    load_model()
     app.run(host='127.0.0.1', port=8080, debug=True)
