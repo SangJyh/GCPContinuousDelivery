@@ -8,10 +8,9 @@ app = Flask(__name__)
 @app.route('/')
 def main():
     #Get random dog image and style image
-    #endpoint = "https://dog.ceo/api/breeds/image/random"
-    #response = requests.get(endpoint)
-    #img_url = response.json()['message']
-    img_url = "https://upload.wikimedia.org/wikipedia/commons/9/93/Golden_Retriever_Carlos_%2810581910556%29.jpg"
+    endpoint = "https://dog.ceo/api/breeds/image/random"
+    response = requests.get(endpoint)
+    img_url = response.json()['message']
     style_img_url = "https://upload.wikimedia.org/wikipedia/en/1/14/Picasso_The_Weeping_Woman_Tate_identifier_T05010_10.jpg"
    
     #Process the style and content images

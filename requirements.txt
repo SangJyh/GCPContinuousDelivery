@@ -4,4 +4,4 @@ tensorflow>=1.7.0
 scikit-image
 matplotlib
 google-cloud-vision
-google
+google-cloud

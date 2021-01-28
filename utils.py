@@ -2,13 +2,7 @@ import os
 import tensorflow as tf
 from skimage import io
 import requests
-import matplotlib.pyplot as plt 
-from google.cloud import vision
-
-"""
-Inspiration: https://www.tensorflow.org/lite/models/style_transfer/overview
-"""
-
+import matplotlib.pyplot as plt
 # Function to load an image from a file, and add a batch dimension.
 def load_img(img_url):
   img = io.imread(img_url)
