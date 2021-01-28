@@ -4,22 +4,22 @@ from utils import load_img, plot, preprocess_image, run_style_predict, run_style
 import base64
 from io import BytesIO
 
+# Get style image and process it 
+style_img_url = "https://upload.wikimedia.org/wikipedia/en/1/14/Picasso_The_Weeping_Woman_Tate_identifier_T05010_10.jpg"
+style_image = preprocess_image(load_img(style_img_url), 256)
+#Calculate style bottleneck for the preprocessed style image
+style_bottleneck = run_style_predict(style_image)
+
 app = Flask(__name__)
 @app.route('/')
 def main():
-    #Get random dog image and style image
+    #Get random dog image 
     endpoint = "https://dog.ceo/api/breeds/image/random"
     response = requests.get(endpoint)
     img_url = response.json()['message']
-    style_img_url = "https://upload.wikimedia.org/wikipedia/en/1/14/Picasso_The_Weeping_Woman_Tate_identifier_T05010_10.jpg"
-   
+    
     #Process the style and content images
     content_image = preprocess_image(load_img(img_url), 384)
-    style_image = preprocess_image(load_img(style_img_url), 256)
-
-    #Calculate style bottleneck for the preprocessed style image
-    style_bottleneck = run_style_predict(style_image)
-
     # Stylize the content image using the style bottleneck
     stylized_image = run_style_transform(style_bottleneck, content_image)
 
