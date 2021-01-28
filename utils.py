@@ -65,34 +65,11 @@ def run_style_transform(style_bottleneck, preprocessed_content_image):
   return(stylized_image)
 
 def plot (content_image, style_image, stylized_image):
-    fig, axs = plt.subplots(1, 3, figsize=(10, 3))
+    fig, axs = plt.subplots(1, 2, figsize=(10, 3))
     axs[0].imshow(tf.squeeze(content_image))
     axs[0].axis('off')
     axs[0].set_title("Raw Image")
-    axs[1].imshow(tf.squeeze(style_image))
+    axs[1].imshow(tf.squeeze(stylized_image))
     axs[1].axis('off')
-    axs[1].set_title("Style Image")
-    axs[2].imshow(tf.squeeze(stylized_image))
-    axs[2].axis('off')
-    axs[2].set_title("Stylized Image")
+    axs[1].set_title("Stylized Image")
     return (fig)
-
-def detect_labels_uri(uri):
-    """Detects labels in the file located in Google Cloud Storage or on the
-    Web."""
-    client = vision.ImageAnnotatorClient()
-    image = vision.Image()
-    image.source.image_uri = uri
-
-    response = client.label_detection(image=image)
-    labels = response.label_annotations
-    print('Labels:')
-
-    for label in labels:
-        print(label.description)
-
-    if response.error.message:
-        raise Exception(
-            '{}\nFor more info on error messages, check: '
-            'https://cloud.google.com/apis/design/errors'.format(
-                response.error.message))
